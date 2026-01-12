@@ -28,7 +28,11 @@ export default function TodoItem({ todo, onComplete, onDelete }: Props) {
         </IconButton>
       }
     >
-      <Checkbox checked={todo.completed} onChange={onComplete} />
+      <Checkbox
+        checked={todo.completed}
+        disabled={todo.completed}
+        onChange={onComplete}
+      />
       <ListItemText primary={todo.title} secondary={`Due: ${todo.dueDate}`} />
     </ListItem>
   );

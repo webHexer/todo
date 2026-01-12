@@ -35,7 +35,7 @@ export default function App() {
   const addButtonClickHandler = async (title: string, dueDate: string) => {
     try {
       await createTodo(title, dueDate);
-      setTimeout(() => loadTodos(), 1000);
+      await loadTodos();
     } catch (err: any) {
       setError(err.message);
     }
@@ -44,7 +44,7 @@ export default function App() {
   const completeButtonClickHandler = async (id: string) => {
     try {
       await completeTodo(id);
-      setTimeout(() => loadTodos(), 1000);
+      await loadTodos();
     } catch (err: any) {
       setError(err.message);
     }
@@ -53,7 +53,7 @@ export default function App() {
   const onDeleteButtonClickHandler = async (id: string) => {
     try {
       await deleteTodo(id);
-      setTimeout(() => loadTodos(), 1000);
+      await loadTodos();
     } catch (err: any) {
       setError(err.message);
     }
