@@ -7,7 +7,6 @@ const getTodos = async (req: Request, res: Response) => {
     const todos = await readTodos();
 
     res.status(200).json({
-      ok: true,
       status: "success",
       results: todos.length,
       data: { todos },
@@ -22,12 +21,10 @@ const addTodo = async (req: Request, res: Response) => {
     const { title, dueDate } = req.body;
 
     if (!title) {
-      return res.status(400).json({ ok: false, message: "Title is required" });
+      return res.status(400).json({ message: "Title is required" });
     }
     if (!dueDate) {
-      return res
-        .status(400)
-        .json({ ok: false, message: "Due date is required" });
+      return res.status(400).json({ message: "Due date is required" });
     }
 
     const todos = await readTodos();
@@ -37,12 +34,11 @@ const addTodo = async (req: Request, res: Response) => {
     await writeTodos(todos);
 
     res.status(201).json({
-      ok: true,
       status: "success",
       data: newTodo,
     });
   } catch (error) {
-    res.status(500).json({ ok: false, message: "Failed to add todo" });
+    res.status(500).json({ message: "Failed to add todo" });
   }
 };
 
@@ -55,7 +51,7 @@ const updateTodo = async (req: Request, res: Response) => {
     const index = todos.findIndex((todo: any) => todo.id === id);
 
     if (index === -1) {
-      return res.status(404).json({ ok: false, message: "Todo not found" });
+      return res.status(404).json({ message: "Todo not found" });
     }
 
     todos[index] = {
@@ -68,12 +64,11 @@ const updateTodo = async (req: Request, res: Response) => {
     await writeTodos(todos);
 
     res.status(200).json({
-      ok: true,
       status: "success",
       data: { todos: todos[index] },
     });
   } catch (error) {
-    res.status(500).json({ ok: false, message: "Failed to update todo" });
+    res.status(500).json({ message: "Failed to update todo" });
   }
 };
 
@@ -85,17 +80,16 @@ const deleteTodo = async (req: Request, res: Response) => {
     const filteredTodos = todos.filter((todo: any) => todo.id !== id);
 
     if (todos.length === filteredTodos.length) {
-      return res.status(404).json({ ok: false, message: "Todo not found" });
+      return res.status(404).json({ message: "Todo not found" });
     }
 
     await writeTodos(filteredTodos);
     res.status(200).json({
-      ok: true,
       status: "success",
       message: "Todo deleted",
     });
   } catch (error) {
-    res.status(500).json({ ok: false, message: "Failed to delete todo" });
+    res.status(500).json({ message: "Failed to delete todo" });
   }
 };
 
@@ -107,7 +101,7 @@ const completeTodo = async (req: Request, res: Response) => {
     const index = todos.findIndex((todo: any) => todo.id === id);
 
     if (index === -1) {
-      return res.status(404).json({ ok: false, message: "Todo not found" });
+      return res.status(404).json({ message: "Todo not found" });
     }
 
     todos[index].completed = true;
@@ -115,14 +109,13 @@ const completeTodo = async (req: Request, res: Response) => {
     await writeTodos(todos);
 
     res.status(200).json({
-      ok: true,
       status: "success",
       data: {
         todo: todos[index],
       },
     });
   } catch (error) {
-    res.status(500).json({ ok: false, message: "Failed to complete todo" });
+    res.status(500).json({ message: "Failed to complete todo" });
   }
 };
 

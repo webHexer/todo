@@ -11,7 +11,19 @@ export type TodosResponse = {
     todos: Todo[];
   };
 };
-
 export interface ResponseProps {
   todos?: TodosResponse;
+}
+export interface TodoItemProps {
+  todo: Todo;
+  onComplete: (id: string) => void;
+  onDelete: (id: string) => void;
+}
+export interface TodoFormProps {
+  onAdd: (title: string, dueDate: string) => void;
+}
+export interface TodoListProps {
+  todos?: Todo[];
+  onComplete: (id: string) => void;
+  onDelete: (id: string) => void;
 }

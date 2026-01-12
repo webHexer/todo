@@ -1,17 +1,15 @@
-import type { Todo } from "../types/todo";
+import type { Todo, TodoListProps } from "../types/todo";
 import { List } from "@mui/material";
 import TodoItem from "./TodoItem";
 
-interface Props {
-  todos?: Todo[];
-  onComplete: (id: string) => void;
-  onDelete: (id: string) => void;
-}
-
-export default function TodoList({ todos, onComplete, onDelete }: Props) {
+export default function TodoList({
+  todos,
+  onComplete,
+  onDelete,
+}: TodoListProps) {
   return (
     <List>
-      {todos?.map((todo) => (
+      {todos?.map((todo: Todo) => (
         <TodoItem
           key={todo.id}
           todo={todo}

@@ -20,6 +20,10 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
+    "types": ["jest", "node"],
+
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
 
     /* ✅ THIS FIXES YOUR ERROR */
     "verbatimModuleSyntax": false

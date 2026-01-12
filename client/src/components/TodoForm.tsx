@@ -1,15 +1,12 @@
 import { useState } from "react";
 import { Button, TextField, Paper, Stack } from "@mui/material";
+import type { TodoFormProps } from "../types/todo";
 
-interface Props {
-  onAdd: (title: string, dueDate: string) => void;
-}
+export default function TodoForm({ onAdd }: TodoFormProps) {
+  const [title, setTitle] = useState<string>("");
+  const [dueDate, setDueDate] = useState<string>("");
 
-export default function TodoForm({ onAdd }: Props) {
-  const [title, setTitle] = useState("");
-  const [dueDate, setDueDate] = useState("");
-
-  const handleButtonClick = () => {
+  const handleButtonClick = (): void => {
     onAdd(title, dueDate);
     setTitle("");
     setDueDate("");
