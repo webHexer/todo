@@ -34,6 +34,20 @@ export default function App() {
 
   const addButtonClickHandler = async (title: string, dueDate: string) => {
     try {
+      // regex to allow only letters and numbers in title
+      const titleRegex = /^(?=.*[A-Za-z0-9])[A-Za-z0-9 ]+$/;
+
+      // validate title and dueDate
+      if (!titleRegex.test(title)) {
+        throw new Error(
+          "Title must contain only letters and numbers and cannot be empty"
+        );
+      }
+      if (!dueDate) {
+        throw new Error("Due date is required");
+      }
+
+      // create todo and reload todos
       await createTodo(title, dueDate);
       await loadTodos();
     } catch (err: any) {

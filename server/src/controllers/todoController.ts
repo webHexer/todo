@@ -20,8 +20,13 @@ const addTodo = async (req: Request, res: Response) => {
   try {
     const { title, dueDate } = req.body;
 
-    if (!title) {
-      return res.status(400).json({ message: "Title is required" });
+    const titleRegex = /^(?=.*[A-Za-z0-9])[A-Za-z0-9 ]+$/;
+
+    if (!titleRegex.test(title)) {
+      return res.status(400).json({
+        message:
+          "Title must contain only letters and numbers and cannot be empty",
+      });
     }
     if (!dueDate) {
       return res.status(400).json({ message: "Due date is required" });
