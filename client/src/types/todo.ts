@@ -18,6 +18,7 @@ export interface TodoItemProps {
   todo: Todo;
   onComplete: (id: string) => void;
   onDelete: (id: string) => void;
+  onEdit: (todo: Todo) => void;
 }
 export interface TodoFormProps {
   onAdd: (title: string, dueDate: string) => void;
@@ -26,4 +27,12 @@ export interface TodoListProps {
   todos?: Todo[];
   onComplete: (id: string) => void;
   onDelete: (id: string) => void;
+  onEdit: (todo: Todo) => void;
+}
+
+export interface EditTodoModalProps {
+  open: boolean;
+  todo: Todo | null;
+  onClose: () => void;
+  onSave: (id: string, title: string, dueDate: string) => void;
 }

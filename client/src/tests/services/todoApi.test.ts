@@ -72,6 +72,6 @@ describe("todoApi", () => {
       method: "DELETE",
     });
 
-    expect(result).toEqual({ message: "Todo deleted", status: "success" }); // DELETE returns null for 204
+    expect(result).toEqual({ message: "Todo deleted", status: "success" });
   });
 });

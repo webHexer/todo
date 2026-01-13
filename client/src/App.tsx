@@ -5,15 +5,18 @@ import {
   createTodo,
   completeTodo,
   deleteTodo,
+  updateTodo,
 } from "./services/todoApi";
 import TodoForm from "./components/TodoForm";
 import TodoList from "./components/TodoList";
 import { Todo } from "./types/todo";
+import EditTodoModal from "./components/EditTodoModal";
 
 export default function App() {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [editTodo, setEditTodo] = useState<Todo | null>(null);
 
   const loadTodos = async () => {
     try {
@@ -73,6 +76,20 @@ export default function App() {
     }
   };
 
+  const onEditButtonClickHandler = (todo: Todo) => {
+    setEditTodo(todo);
+  };
+
+  const handleEditSave = async (id: string, title: string, dueDate: string) => {
+    try {
+      await updateTodo(id, { title, dueDate });
+      await loadTodos();
+      setEditTodo(null);
+    } catch (err: any) {
+      setError(err.message);
+    }
+  };
+
   return (
     <Container maxWidth="sm" style={{ marginTop: "2rem" }}>
       <Typography variant="h4" gutterBottom>
@@ -90,8 +107,15 @@ export default function App() {
           todos={todos}
           onComplete={completeButtonClickHandler}
           onDelete={onDeleteButtonClickHandler}
+          onEdit={onEditButtonClickHandler}
         />
       )}
+      <EditTodoModal
+        open={Boolean(editTodo)}
+        todo={editTodo}
+        onClose={() => setEditTodo(null)}
+        onSave={handleEditSave}
+      />
     </Container>
   );
 }

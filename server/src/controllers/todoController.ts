@@ -62,7 +62,6 @@ const updateTodo = async (req: Request, res: Response) => {
     todos[index] = {
       ...todos[index],
       title: title ?? todos[index].title,
-      completed: completed ?? todos[index].completed,
       dueDate: dueDate ?? todos[index].dueDate,
     };
 

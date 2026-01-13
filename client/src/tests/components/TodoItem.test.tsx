@@ -1,6 +1,5 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import TodoItem from "../../components/TodoItem";
-import { on } from "events";
 
 const todo = {
   id: "1",
@@ -13,7 +12,12 @@ const todo = {
 describe("TodoItem Component", () => {
   test("renders todo title", () => {
     render(
-      <TodoItem todo={todo} onComplete={jest.fn()} onDelete={jest.fn()} />
+      <TodoItem
+        todo={todo}
+        onEdit={jest.fn()}
+        onComplete={jest.fn()}
+        onDelete={jest.fn()}
+      />
     );
 
     expect(screen.getByText("Buy Groceries")).toBeInTheDocument();
@@ -22,9 +26,15 @@ describe("TodoItem Component", () => {
   test("calls onComplete when complete button clicked", () => {
     const onComplete = jest.fn();
     const onDelete = jest.fn();
+    const onEdit = jest.fn();
 
     render(
-      <TodoItem todo={todo} onComplete={onComplete} onDelete={onDelete} />
+      <TodoItem
+        todo={todo}
+        onEdit={onEdit}
+        onComplete={onComplete}
+        onDelete={onDelete}
+      />
     );
 
     const checkbox = screen.getByRole("checkbox");
@@ -37,14 +47,20 @@ describe("TodoItem Component", () => {
   test("calls onDelete when delete button clicked", () => {
     const onComplete = jest.fn();
     const onDelete = jest.fn();
+    const onEdit = jest.fn();
 
     render(
-      <TodoItem todo={todo} onComplete={onComplete} onDelete={onDelete} />
+      <TodoItem
+        todo={todo}
+        onEdit={onEdit}
+        onComplete={onComplete}
+        onDelete={onDelete}
+      />
     );
 
-    const deleteButton = screen.getByRole("button");
+    const deleteButton = screen.getAllByRole("button");
 
-    fireEvent.click(deleteButton);
+    fireEvent.click(deleteButton[1]); // Second button is delete
 
     expect(onDelete).toHaveBeenCalledWith(todo.id);
   });

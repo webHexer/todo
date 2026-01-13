@@ -31,15 +31,7 @@ export default function TodoForm({ onAdd }: TodoFormProps) {
           onChange={(e) => setDueDate(e.target.value)}
         />
 
-        <Button
-          variant="contained"
-          fullWidth
-          sx={{
-            minWidth: { sm: 120 },
-            height: { sm: 56 },
-          }}
-          onClick={handleButtonClick}
-        >
+        <Button variant="contained" fullWidth onClick={handleButtonClick}>
           Add Todo
         </Button>
       </Stack>

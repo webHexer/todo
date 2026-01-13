@@ -1,10 +1,12 @@
 import type { TodoItemProps } from "../types/todo";
 import { Checkbox, IconButton, ListItem, ListItemText } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
 
 export default function TodoItem({
   todo,
   onComplete,
+  onEdit,
   onDelete,
 }: TodoItemProps) {
   const today = new Date().toISOString().split("T")[0]; // YYYY-MM-DD
@@ -25,9 +27,18 @@ export default function TodoItem({
         mb: 1,
       }}
       secondaryAction={
-        <IconButton edge="end" onClick={() => onDelete(todo.id)}>
-          <DeleteIcon />
-        </IconButton>
+        <>
+          <IconButton aria-label="edit" edge="end" onClick={() => onEdit(todo)}>
+            <EditIcon />
+          </IconButton>
+          <IconButton
+            aria-label="delete"
+            edge="end"
+            onClick={() => onDelete(todo.id)}
+          >
+            <DeleteIcon />
+          </IconButton>
+        </>
       }
     >
       <Checkbox
